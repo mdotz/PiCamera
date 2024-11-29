@@ -2,6 +2,8 @@
 import time
 from . import lcdconfig
 import numbers
+import logging
+import datetime
 
 class LCD_2inch4(lcdconfig.RaspberryPi):
 
@@ -134,6 +136,7 @@ class LCD_2inch4(lcdconfig.RaspberryPi):
         self.command(0x2C)    
         
     def ShowImage(self,Image,Xstart=0,Ystart=0):
+        logging.info("STARTS TO SHOW IMAGE AT % s" % datetime.datetime.now())
         """Set buffer to value of Python Imaging Library image."""
         """Write display buffer to physical display"""
         imwidth, imheight = Image.size
@@ -167,6 +170,7 @@ class LCD_2inch4(lcdconfig.RaspberryPi):
             self.digital_write(self.DC_PIN,True)
             for i in range(0,len(pix),4096):
                 self.spi_writebyte(pix[i:i+4096])
+        logging.info("FINISHES TO SHOW IMAGE AT % s" % datetime.datetime.now())
 
     def clear(self):
         """Clear contents of image buffer"""

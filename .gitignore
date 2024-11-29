@@ -1,3 +1,4 @@
-*.mjpeg
-*.jpeg
-*.jpg
+**/*.mjpeg
+**/*.jpeg
+**/*.jpg
+**/._*
