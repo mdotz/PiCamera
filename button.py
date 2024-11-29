@@ -12,7 +12,7 @@ GPIO.setup(button_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 previous_state = 1
 
-image_path = "/home/kubac/ugabuga/pics/button_made.jpg"
+image_path = "current_pic.jpeg"
 command = ["libcamera-jpeg", "--width", "240", "--height", "320", "--output", image_path, "--nopreview", "--timeout", "1", "--immediate"]
 
 display = LCD_2inch4.LCD_2inch4()
