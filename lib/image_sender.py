@@ -7,19 +7,19 @@ import time
 import logging
 import spidev as SPI
 sys.path.append(".")
-from lib import LCD_2inch4
-from PIL import Image,ImageDraw,ImageFont
+from PIL import Image, ImageDraw,ImageFont
 
 class ImageSender:
-    def __init__(self, image_path):
+    def __init__(self, image_path, display, image):
         self.image_path = image_path
-        self.disp = LCD_2inch4.LCD_2inch4()
-        self.disp.Init()
-        self.disp.clear()
-        self.disp.bl_DutyCycle(50)
+        self.display = display
+        # self.disp = LCD_2inch4.LCD_2inch4()
+        # self.disp.Init()
+        # self.disp.clear()
+        # self.disp.bl_DutyCycle(50)
         logging.basicConfig(level=logging.DEBUG)
-        image1 = Image.new("RGB", (self.disp.width, self.disp.height ), "WHITE")
-        draw = ImageDraw.Draw(image1)
+        # image1 = Image.new("RGB", (display.width, display.height ), "WHITE")
+        # draw = ImageDraw.Draw(image1)
 
     def call(self):
         #self.disp.clear()
@@ -44,14 +44,14 @@ class ImageSender:
             print("rotate")
             image = image.rotate(0)
             print("show")
-            self.disp.ShowImage(image)
+            self.display.ShowImage(image)
             #time.sleep(3)
             print("close")
-            image.close()
+            # image.close()
             # self.disp.module_exit()
             # logging.info("quit:")
         except IOError as e:
-            logging.info(e)    
+            logging.info(e)
         # except KeyboardInterrupt:
             # self.disp.module_exit()
             # logging.info("quit:")
