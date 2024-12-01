@@ -38,7 +38,7 @@ class ImageSender:
 
     # Create blank image for drawing.
 
-            logging.info("show image")
+            # logging.info("show image")
             print("open")
             image = Image.open(self.image_path)
             print("rotate")

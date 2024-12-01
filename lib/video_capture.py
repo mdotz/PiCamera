@@ -11,7 +11,7 @@ class VideoCapture:
         self.lcd = lcd_display
         self._running = False
         self._capture_thread = None
-        
+
     def _capture_video(self):
         while self._running:
             try:
@@ -22,11 +22,12 @@ class VideoCapture:
                     "--height", "320",
                     "--output", "-",
                     "--nopreview",
-                    "--framerate", "24",  # Increased framerate
+                    "--framerate", "30",  # Increased framerate
                     "--inline",           # Optimize for streaming
                     # "--tune", "zerolatency",  # Optimize for low latency
                     "--segment", "1",     # Split output into 1ms segments
-                    "--flush", "1"        # Flush buffers quickly
+                    "--flush", "1",        # Flush buffers quickly
+                    "--timeout", "999999999999999sec"
                 ]
                 
                 process = subprocess.Popen(
@@ -44,7 +45,7 @@ class VideoCapture:
                         break
                         
                     frame_buffer += chunk
-                    
+
                     # Find JPEG markers in buffer
                     start = frame_buffer.find(b'\xff\xd8')
                     end = frame_buffer.find(b'\xff\xd9')
@@ -52,7 +53,7 @@ class VideoCapture:
                     if start != -1 and end != -1:
                         jpeg = frame_buffer[start:end + 2]
                         frame_buffer = frame_buffer[end + 2:]
-                        
+
                         frame_counter += 1
                         if frame_counter % 2 == 0:  # Process every second frame
                             try:
@@ -60,7 +61,7 @@ class VideoCapture:
                                 self.lcd.ShowImage(image)
                             except Exception as e:
                                 logging.error("Error displaying frame: %s", str(e))
-                
+
                 process.terminate()
                     
             except Exception as e:
